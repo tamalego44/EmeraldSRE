@@ -84,7 +84,7 @@ def main():
         if (val % 2 == 0) and (val // 2 <= 0xff):
             write(buff, addr, val, 1)
             #write(buff, )
-            #TODO: re-set LSL instruction
+            #TODO: re-set LSL instruction test
         elif val <= 0xff:
             write(buff, addr, val, 1)
             write(buff, addr+2, 0x46c0, 2)
