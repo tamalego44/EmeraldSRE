@@ -1,14 +1,16 @@
 #!/usr/bin/env python
 
+from pkmn_codec import *
+codecs.register(custom_search_function)
+
 import os, msvcrt
-from main import *
-from gui import *
 import sys
 
 if len(sys.argv) > 1:
     filename = sys.argv[1]
 else:
-    filename = 'rom.gba' #default file
+    print("Usage: python hex_editor.py <name of file>")
+    exit()
 #filename = 'dump'
 
 #inFileName = "save2.sav"
@@ -115,11 +117,11 @@ class HexEditor:
 
         #Post display info
         if (self.mode == None): # Normal Mode
-            print("f: find mode, s: save, g: goto, enter: modify value")
+            print("f: find mode, s: save, g: goto, enter: modify value, d: quit")
         elif (self.mode == "f"): # Find mode
             print("Find mode activated")
             print("String: %s (%d of %d)" % (self.string, (self.stringIndex + 1), len(self.stringIndices)))
-            print("s: set string, n: next, p: prev, f: exit find mode")
+            print("s: set string, n: next, p: prev, f: exit find mode, d: quit")
 
     def goto(self, n: int):
         self.pos.x = n % width

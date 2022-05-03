@@ -1,4 +1,25 @@
-from main import *
+from pkmn_codec import *
+codecs.register(custom_search_function)
+
+def read(buff, index, nBytes):
+    return sum([buff[index + n] << (8 * n) for n in range(nBytes)])
+
+def write(buff, index, data, nBytes=None):
+    if nBytes == None:
+        while data > 0:
+            buff[index] = data & 0xFF
+            data >>= 8
+            index += 1
+    else:
+        for i in range(nBytes):
+            if data > 0:
+                buff[index] = data & 0xFF
+                data >>= 8
+            else:
+                buff[index] = 0
+            index += 1
+    
+    return buff
 
 filename = input("Input file:")
 with open(filename, 'rb+') as file:
@@ -68,8 +89,10 @@ def main():
 
     if hack == "starters":
 
+        print("Current starters:")
         print_starters()
 
+        print("Input 3 new starters:")
         done = 0
         while done < 3:
             val = input_pokemon()
@@ -79,6 +102,7 @@ def main():
     
     elif hack == "firstenc":
         addr = 0x32706
+        print("Input the desired first encounter pokemon:")
         val = input_pokemon()
 
         if (val % 2 == 0) and (val // 2 <= 0xff):
@@ -92,8 +116,6 @@ def main():
             val = val - 0xff
             write(buff, addr, val, 1)
             write(buff, addr+2, 0x31FF, 2)
-            
-
         
         else:
             print("pokemon ID not yet supported")

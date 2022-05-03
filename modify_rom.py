@@ -1,11 +1,8 @@
+from pkmn_codec import *
+codecs.register(custom_search_function)
 
-from io import TextIOWrapper
-from main import *
-from gui import *
+romFileName = 'pokemondata/rom.gba'
 
-romFileName = 'rom.gba'
-
-inFileName = "save2.sav"
 startLocation = 0x11000
 # 0x2000 and 0x11000?
 # outFileName = "new.sav"
